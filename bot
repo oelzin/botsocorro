@@ -1,0 +1,150 @@
+import discord
+import asyncio
+
+client = discord.Client()
+
+@client.event
+async def on_ready():
+    print('BOT ONLINE - Oi! Estou funcionando agora!')
+    print (client.user.name)
+    print (client.user.id)
+
+
+
+
+@client.event
+async def on_message(message):
+     if message.content.startswith(':denunciar'):
+        await client.send_message(message.author, '**Qual úsuario você deseja denunciar? {}**'.format(message.author.mention))
+        jogador = await client.wait_for_message(author=message.author)
+        await client.send_message(message.author, '**O que esse Habby fez? {}**'.format(message.author.mention))
+        motivo = await client.wait_for_message(author=message.author)
+        await client.send_message(message.author, '**Wol! Mas que dia foi isso? {}**'.format(message.author.mention))
+        dia = await client.wait_for_message(author=message.author)
+        await  client.send_message(message.author, '**Ok, me mostre uma prova (Hospede no imgur ou outro) e eu enviarei para a nossa equipe! {}:**'.format(message.author.mention))
+        prova = await client.wait_for_message(author=message.author)
+        canal = client.get_channel('488079096643977236')
+        embed = discord.Embed(colour=0xF0000, description="O Habby: {} acabou de denunciar!".format(message.author.mention))
+        embed.add_field(name='✏Motivo:',value=motivo.content)
+        embed.add_field(name='📅Data do ocorrido:', value=dia.content)
+        embed.add_field(name='🗒Prova:', value=prova.content)
+        embed.add_field(name='👤Habby denunciado:',value=jogador.content)
+        await client.send_message(canal,embed=embed)
+
+
+     if message.content.startswith(':terminado'):
+        await client.send_message(message.author, 'Para fechar a sua cota me informe quantos eventos foram realizados!'.format(message.author.mention))
+        jogador = await client.wait_for_message(author=message.author)
+        canal = client.get_channel('480071961817382934')
+        embed = discord.Embed(colour=0xF0000, description="Pronto {} sua cota foi fechada! Agora vá tirar uma folginha, ok?".format(message.author.mention))
+        embed.add_field(name='Quantidade de eventos realizados:',value=jogador.content)
+        await client.send_message(canal,embed=embed)
+
+     if message.content.startswith(':fimdodia'):
+        await client.send_message(message.author, 'Por favor, me informe a quantidade de eventos realizados no dia.'.format(message.author.mention))
+        jogador = await client.wait_for_message(author=message.author)
+        await client.send_message(message.author, 'Quantas atividades tivemos hoje no hotel?'.format(message.author.mention))
+        motivo = await client.wait_for_message(author=message.author)
+        await client.send_message(message.author, 'Informe o nome do moderador ou administrador que deixou de cumprir a cota'.format(message.author.mention))
+        dia = await client.wait_for_message(author=message.author)
+        canal = client.get_channel('480071961817382934')
+        embed = discord.Embed(colour=0xF0000, description="O relatório diário do hotel foi fechado!".format(message.author.mention))
+        embed.add_field(name='Quantidade de atividades realizadas no dia:',value=motivo.content)
+        embed.add_field(name='Não cumpriram a cota diária:', value=dia.content)
+        embed.add_field(name='Quantidade de eventos realizados no dia:',value=jogador.content)
+        await client.send_message(canal,embed=embed)
+
+     if message.content.startswith(':pausarcota'):
+        await client.send_message(message.author, 'Estou aqui para fazer uma pausa na sua cota! Me informe quantos eventos você realizou até agora!'.format(message.author.mention))
+        jogador = await client.wait_for_message(author=message.author)
+        canal = client.get_channel('487391113976479754')
+        embed = discord.Embed(colour=0xF0000, description="Pronto {} sua cota foi pausada! Para reabrir basta me pedir novamente, ok?".format(message.author.mention))
+        embed.add_field(name='Quantidade de eventos realizados até o momento:',value=jogador.content)
+        await client.send_message(canal,embed=embed)
+
+
+     if message.content.lower().startswith('?test'):
+        await client.send_message(message.channel, "Isso foi apenas um teste, certo?")
+
+     if message.content.lower().startswith('oi socorro'):
+        await client.send_message(message.channel, "Oiie! Você por aqui? Espero que esteja se divertindo... Bem, eu estou!")
+
+     if message.content.lower().startswith('quem é socorro?'):
+        await client.send_message(message.channel, "Eu sou apenas uma bot em desenvolvimento. Espero que possam me ensinar truques novos!")
+
+     if message.content.lower().startswith('como jogar'):
+        await client.send_message(message.channel, "É muito fácil jogar! Entra aqui ó: playhabby.com xD")
+
+     if message.content.lower().startswith('plano vip'):
+        await client.send_message(message.channel, "Comprar planos nunca foi tão fácil! A gente tem uma página só pra isso, vem ver: playhabby.com/vip")
+
+     if message.content.lower().startswith('socorro canta um rap'):
+        await client.send_message(message.channel, "Ok, aí vai: djksuedmsssndddfghhkd rap god, rap god! É do Eminem, conhece?")
+
+     if message.content.lower().startswith('soco socorro'):
+        await client.send_message(message.channel, "Isso me machucou! *Chamando Equipe Staff*")
+
+     if message.content.lower().startswith('socorro me ajuda'):
+        await client.send_message(message.channel, "Precisa de ajuda? digite :ajuda!")
+
+     if message.content.lower().startswith('socorro abre minha cota'):
+        await client.send_message(message.channel, "Pronto! Sua cota foi iniciada, não esqueça de dizer :terminado para que eu possa fechá-la, ok?")
+
+     if message.content.lower().startswith('tem vagas'):
+        await client.send_message(message.channel, "No meu coração sempre tem uma vaguinha. Coração de Guia que fala, né?")
+
+     if message.content.lower().startswith('grito'):
+        await client.send_message(message.channel, "Ai gente, que barulho é esse? Ouvi lá da recepção!")
+
+     if message.content.lower().startswith('embuste'):
+        await client.send_message(message.channel, "Morta! Lembrei do meu ex!")
+
+     if message.content.lower().startswith('staff'):
+        await client.send_message(message.channel, "Ah sim, temos alguns membros da nossa equipe: Miguel, Adore, Seether... Ai, é muita gente mesmo! Precisa falar com algum deles? Digite :ajuda")
+
+     if message.content.lower().startswith('socorro conta uma fofoca'):
+        await client.send_message(message.channel, "Eu deixo isso para meu amigo Pato Gloss, ok? Mas você soube daquela briga da Nicki com a Cardi B? Eu gritei gata!")
+
+     if message.content.lower().startswith('promoções ativas'):
+        await client.send_message(message.channel, "Tem sim! Entra aqui: http://www.playhabby.com/news/12, baby! ;)")
+
+     if message.content.lower().startswith('hi socorro'):
+        await client.send_message(message.channel, "Late... Quer dizer... Posso ajudar?")
+
+     if message.content.lower().startswith('chute socorro'):
+         await client.send_message(message.channel, "Ai! Isso me machucou! *Chamando Equipe Staff*")
+
+     if message.content.lower().startswith('pantano dos hps'):
+        await client.send_message(message.channel, "Só tem cobra, paty-nestle me livre!")
+
+     if message.content.lower().startswith('habblive'):
+        await client.send_message(message.channel, "Tá louca more de falar isso aqui? *Chamando Equipe Staff* Alô? Adore? Pode vim dar ban!")
+
+     if message.content.lower().startswith('iron'):
+        await client.send_message(message.channel, "Eu não acredito que você falou esse nome aqui! *Chamando Equipe Staff* Alô? Adore? Pode vim dar ban!")
+
+     if message.content.lower().startswith('ihabi'):
+        await client.send_message(message.channel, "Eu não acredito que você falou esse nome aqui! *Chamando Equipe Staff* Alô? Adore? Pode vim dar ban!")
+
+     if message.content.lower().startswith('bolsonaro'):
+        await client.send_message(message.channel, "Coragem, né? Não vou dizer o que...")
+
+     if message.content.startswith(':ajuda'):
+        await client.send_message(message.author, '**Oi {}! Para te ajudar preciso saber a sua dúvida, exemplo: Promoção, bugs, problemas na minha conta...**'.format(message.author.mention))
+        jogador = await client.wait_for_message(author=message.author)
+        await  client.send_message(message.author, '**Ok, se for algum bug me manda uma imagem e eu encaminharei para a equipe staff!  {}:**'.format(message.author.mention))
+        prova = await client.wait_for_message(author=message.author)
+        canal = client.get_channel('488079323773927425')
+        embed = discord.Embed(colour=0xF0000, description="O Habby: {} acabou de pedir ajuda!".format(message.author.mention))
+        embed.add_field(name='🗒Prova:', value=prova.content)
+        embed.add_field(name='Solicitação:',value=jogador.content)
+        await client.send_message(canal,embed=embed)
+
+
+async def on_member_join(member):
+  canal = client.get_channel("480073377269415951")
+  regras = client.get_channel("484798497250476042")
+  msg = "Olá! Seja bem-vindo ao servidor do Habby {}! Antes de mais nada leia as {}! Espero que divirta-se em nosso servidor, qualquer coisa estou aqui 24hrs por dia! Até!".format(member.mention, regras.mention)
+  await client.send_message(member, msg)
+
+client.run('NDg4MDc0NDk3NjA2Mjg3NDEx.DnW65Q.M7TrPsmo8FHaFjElKv1ZrPJb-Qw')
